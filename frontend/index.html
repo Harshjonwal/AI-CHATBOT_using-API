@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatBot</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Cpath d='M9 11h14M9 16h10M9 21h7' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Chats">
+      <div class="sidebar-head">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>ChatBot</span>
+        </div>
+        <button id="new-chat" class="btn btn-accent" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          New chat
+        </button>
+      </div>
+      <nav id="conv-list" class="conv-list"></nav>
+      <div class="sidebar-foot" id="model-info"></div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menu-btn" class="icon-btn mobile-only" type="button" aria-label="Show chats">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <h1 id="chat-title">New chat</h1>
+        <span id="usage" class="usage" title="Tokens used in this chat"></span>
+        <button id="export-btn" class="icon-btn" type="button" title="Export chat as Markdown" aria-label="Export chat" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        </button>
+      </header>
+
+      <div id="banner" class="banner" role="alert" hidden></div>
+
+      <section id="messages" class="messages" aria-live="polite"></section>
+
+      <form id="composer" class="composer">
+        <div class="composer-box">
+          <textarea id="input" rows="1" placeholder="Ask anything…" aria-label="Message"></textarea>
+          <button type="submit" id="send-btn" class="send-btn" aria-label="Send">
+            <svg class="i-send" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            <svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/></svg>
+          </button>
+        </div>
+        <div class="composer-bar">
+          <label class="effort">
+            Thinking
+            <select id="effort" aria-label="How much the model thinks before answering"></select>
+          </label>
+          <span class="hint">Enter to send · Shift+Enter for a new line</span>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <template id="setup-template">
+    <div class="setup">
+      <h2>Start a conversation</h2>
+      <p class="setup-sub">These settings stay fixed for the whole chat, so set them before your first message.</p>
+      <label class="field">
+        <span>Persona (system prompt)</span>
+        <textarea id="persona" rows="3" placeholder="Leave blank for a friendly general assistant, or describe a role, tone, or rules."></textarea>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="web-search">
+        <span class="toggle-track" aria-hidden="true"></span>
+        <span>Google Search <small>Lets the assistant look up current information and cite sources. Often not included in the free tier.</small></span>
+      </label>
+      <div class="suggestions">
+        <button type="button" class="suggestion">Explain how HTTPS keeps my data private</button>
+        <button type="button" class="suggestion">Write a Python function that validates an email address</button>
+        <button type="button" class="suggestion">Plan a 3-day study schedule for learning SQL</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
